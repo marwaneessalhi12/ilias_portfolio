@@ -100,20 +100,14 @@ const Contact = () => {
                         href={social.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        initial={{ opacity: 0, y: 20, scale: 0.8 }}
-                        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.4, delay: idx * 0.1, type: "spring" }}
-                        whileHover={{ scale: 1.1, y: -5 }}
-                        whileTap={{ scale: 0.95 }}
-                        className={`flex flex-col items-center justify-center p-6 bg-white dark:bg-slate-900 rounded-xl shadow-md hover:shadow-2xl transition-all ${social.color}`}
+                        transition={{ duration: 0.4, delay: idx * 0.1 }}
+                        whileHover={{ scale: 1.05 }}
+                        className={`flex flex-col items-center justify-center p-6 bg-white dark:bg-slate-900 rounded-xl shadow-md hover:shadow-xl transition-all ${social.color}`}
                       >
-                        <motion.div
-                          whileHover={{ rotate: [0, -10, 10, 0] }}
-                          transition={{ duration: 0.5 }}
-                        >
-                          <Icon size={32} className="mb-3" />
-                        </motion.div>
+                        <Icon size={32} className="mb-3" />
                         <span className="text-sm font-medium">{social.name}</span>
                       </motion.a>
                     );
@@ -184,12 +178,10 @@ const Contact = () => {
                 />
               </div>
 
-              <motion.button
+              <button
                 type="submit"
                 disabled={status === 'sending'}
-                whileHover={status !== 'sending' ? { scale: 1.02, y: -2 } : {}}
-                whileTap={status !== 'sending' ? { scale: 0.98 } : {}}
-                className="w-full px-8 py-4 bg-gradient-to-r from-blue-600 to-teal-500 text-white rounded-xl font-semibold shadow-lg hover:shadow-2xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="w-full px-8 py-4 bg-gradient-to-r from-blue-600 to-teal-500 text-white rounded-xl font-semibold hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2"
               >
                 {status === 'sending' ? (
                   <>
@@ -208,16 +200,11 @@ const Contact = () => {
                   </>
                 ) : (
                   <>
-                    <motion.div
-                      animate={{ x: [0, 3, 0] }}
-                      transition={{ duration: 1, repeat: Infinity }}
-                    >
-                      <Send size={20} />
-                    </motion.div>
+                    <Send size={20} />
                     {t.contact.send}
                   </>
                 )}
-              </motion.button>
+              </button>
 
               {status === 'success' && (
                 <motion.div

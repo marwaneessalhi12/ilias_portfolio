@@ -31,22 +31,19 @@ const Projects = () => {
           {featuredProjects.map((project, idx) => (
             <motion.div
               key={project.id}
-              initial={{ opacity: 0, y: 30, rotateX: -15 }}
-              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: idx * 0.1 }}
               onMouseEnter={() => setHoveredProject(project.id)}
               onMouseLeave={() => setHoveredProject(null)}
-              whileHover={{ y: -10, scale: 1.02 }}
-              className="group relative bg-slate-50 dark:bg-slate-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
+              className="group relative bg-slate-50 dark:bg-slate-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
             >
               <div className="relative h-64 overflow-hidden">
-                <motion.img
+                <img
                   src={project.imageUrl}
                   alt={project.title}
-                  whileHover={{ scale: 1.15 }}
-                  transition={{ duration: 0.5 }}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
 
@@ -73,17 +70,12 @@ const Projects = () => {
 
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.technologies.slice(0, 3).map((tech, techIdx) => (
-                    <motion.span
+                    <span
                       key={techIdx}
-                      initial={{ opacity: 0, scale: 0 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.1 + techIdx * 0.05 }}
-                      whileHover={{ scale: 1.1 }}
-                      className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-sm rounded-full font-medium cursor-default"
+                      className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-sm rounded-full font-medium"
                     >
                       {tech}
-                    </motion.span>
+                    </span>
                   ))}
                   {project.technologies.length > 3 && (
                     <span className="px-3 py-1 bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-400 text-sm rounded-full font-medium">
@@ -93,21 +85,15 @@ const Projects = () => {
                 </div>
 
                 {project.link && (
-                  <motion.a
+                  <a
                     href={project.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    whileHover={{ x: 5 }}
                     className="inline-flex items-center gap-2 text-blue-600 dark:text-teal-500 font-semibold hover:gap-3 transition-all"
                   >
                     {t.projects.viewProject}
-                    <motion.div
-                      animate={{ x: [0, 3, 0] }}
-                      transition={{ duration: 1, repeat: Infinity }}
-                    >
-                      <ExternalLink size={18} />
-                    </motion.div>
-                  </motion.a>
+                    <ExternalLink size={18} />
+                  </a>
                 )}
               </div>
             </motion.div>
@@ -121,20 +107,13 @@ const Projects = () => {
           transition={{ duration: 0.6 }}
           className="text-center"
         >
-          <motion.button
+          <button
             onClick={() => navigate('/projects')}
-            whileHover={{ scale: 1.05, y: -5 }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-600 to-teal-500 text-white rounded-xl font-semibold shadow-xl hover:shadow-2xl transition-all duration-300"
+            className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-600 to-teal-500 text-white rounded-xl font-semibold hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
           >
             {t.projects.viewAll}
-            <motion.div
-              animate={{ x: [0, 5, 0] }}
-              transition={{ duration: 1, repeat: Infinity }}
-            >
-              <ArrowRight size={20} />
-            </motion.div>
-          </motion.button>
+            <ArrowRight size={20} />
+          </button>
         </motion.div>
       </div>
     </section>

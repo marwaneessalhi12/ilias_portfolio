@@ -30,17 +30,12 @@ const About = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            whileHover={{ scale: 1.02, y: -5 }}
-            className="bg-gradient-to-br from-blue-50 to-teal-50 dark:from-slate-800 dark:to-slate-700 p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all"
+            className="bg-gradient-to-br from-blue-50 to-teal-50 dark:from-slate-800 dark:to-slate-700 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow"
           >
             <div className="flex items-center mb-6">
-              <motion.div
-                animate={{ rotate: [0, 10, -10, 0] }}
-                transition={{ duration: 3, repeat: Infinity }}
-                className="p-3 bg-blue-600 rounded-lg mr-4"
-              >
+              <div className="p-3 bg-blue-600 rounded-lg mr-4">
                 <GraduationCap className="text-white" size={28} />
-              </motion.div>
+              </div>
               <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
                 {t.education.title}
               </h3>
@@ -72,17 +67,12 @@ const About = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            whileHover={{ scale: 1.02, y: -5 }}
-            className="bg-gradient-to-br from-teal-50 to-blue-50 dark:from-slate-700 dark:to-slate-800 p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all"
+            className="bg-gradient-to-br from-teal-50 to-blue-50 dark:from-slate-700 dark:to-slate-800 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow"
           >
             <div className="flex items-center mb-6">
-              <motion.div
-                animate={{ scale: [1, 1.1, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-                className="p-3 bg-teal-500 rounded-lg mr-4"
-              >
+              <div className="p-3 bg-teal-500 rounded-lg mr-4">
                 <Briefcase className="text-white" size={28} />
-              </motion.div>
+              </div>
               <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
                 {t.experience.title}
               </h3>
@@ -90,15 +80,9 @@ const About = () => {
 
             <div className="flex items-center justify-center h-40">
               <div className="text-center">
-                <motion.div
-                  initial={{ scale: 0 }}
-                  whileInView={{ scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ type: "spring", duration: 1, delay: 0.6 }}
-                  className="text-6xl font-bold bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent mb-2"
-                >
+                <div className="text-6xl font-bold bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent mb-2">
                   5+
-                </motion.div>
+                </div>
                 <p className="text-xl text-slate-600 dark:text-slate-400">
                   {t.experience.years}
                 </p>
