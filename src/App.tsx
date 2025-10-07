@@ -4,6 +4,7 @@ import { ThemeProvider } from './contexts/ThemeContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import AIAssistant from './components/AIAssistant';
+import AnimatedBackground from './components/AnimatedBackground';
 import Home from './pages/Home';
 import AllProjects from './pages/AllProjects';
 
@@ -12,7 +13,8 @@ function App() {
     <ThemeProvider>
       <LanguageProvider>
         <Router>
-          <div className="min-h-screen bg-white dark:bg-slate-900 transition-colors">
+          <div className="min-h-screen bg-white dark:bg-slate-900 transition-colors relative">
+            <AnimatedBackground />
             <Header />
             <Routes>
               <Route path="/" element={<Home />} />

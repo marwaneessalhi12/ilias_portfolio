@@ -176,20 +176,29 @@ const Hero = () => {
               transition={{ delay: 0.6 }}
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
             >
-              <button
+              <motion.button
                 onClick={handleDownloadCV}
-                className="px-8 py-3 bg-gradient-to-r from-blue-600 to-teal-500 text-white rounded-lg font-semibold hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2"
+                whileHover={{ scale: 1.05, y: -5 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-3 bg-gradient-to-r from-blue-600 to-teal-500 text-white rounded-lg font-semibold shadow-lg hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-2"
               >
-                <Download size={20} />
+                <motion.div
+                  animate={{ y: [0, -3, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                >
+                  <Download size={20} />
+                </motion.div>
                 {t.hero.downloadCV}
-              </button>
+              </motion.button>
 
-              <a
+              <motion.a
                 href="#projects"
-                className="px-8 py-3 border-2 border-blue-600 text-blue-600 dark:border-teal-500 dark:text-teal-500 rounded-lg font-semibold hover:bg-blue-600 hover:text-white dark:hover:bg-teal-500 transform hover:-translate-y-1 transition-all duration-300"
+                whileHover={{ scale: 1.05, y: -5 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-3 border-2 border-blue-600 text-blue-600 dark:border-teal-500 dark:text-teal-500 rounded-lg font-semibold hover:bg-blue-600 hover:text-white dark:hover:bg-teal-500 shadow-md hover:shadow-xl transition-all duration-300 text-center"
               >
                 {t.hero.viewProjects}
-              </a>
+              </motion.a>
             </motion.div>
           </motion.div>
 
