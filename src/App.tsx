@@ -3,6 +3,7 @@ import { LanguageProvider } from './contexts/LanguageContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import AIAssistant from './components/AIAssistant';
 import Home from './pages/Home';
 import AllProjects from './pages/AllProjects';
 
@@ -18,6 +19,7 @@ function App() {
               <Route path="/projects" element={<AllProjects />} />
             </Routes>
             <Footer />
+            <AIAssistant />
           </div>
         </Router>
       </LanguageProvider>

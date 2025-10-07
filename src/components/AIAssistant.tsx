@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
-import { Bot, Send, User } from 'lucide-react';
+import { Bot, Send, User, X } from 'lucide-react';
 
 interface Message {
   id: number;
@@ -12,6 +12,7 @@ interface Message {
 
 const AIAssistant = () => {
   const { t } = useLanguage();
+  const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
@@ -98,121 +99,137 @@ const AIAssistant = () => {
   };
 
   return (
-    <section className="py-20 bg-slate-50 dark:bg-slate-800">
-      <div className="container mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-slate-900 dark:text-white">
-            {t.aiAssistant.title}
-          </h2>
-          <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-            {t.aiAssistant.subtitle}
-          </p>
-        </motion.div>
+    <>
+      <motion.button
+        onClick={() => setIsOpen(true)}
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
+        className="fixed bottom-6 right-6 z-40 p-4 bg-gradient-to-r from-blue-600 to-teal-500 text-white rounded-full shadow-2xl hover:shadow-3xl transition-all"
+      >
+        <Bot size={28} />
+      </motion.button>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="max-w-4xl mx-auto bg-white dark:bg-slate-900 rounded-2xl shadow-2xl overflow-hidden"
-        >
-          <div className="bg-gradient-to-r from-blue-600 to-teal-500 p-4 flex items-center gap-3">
-            <div className="p-2 bg-white/20 rounded-lg">
-              <Bot className="text-white" size={24} />
-            </div>
-            <div>
-              <h3 className="text-white font-semibold">AI Assistant</h3>
-              <p className="text-white/80 text-sm">Always here to help</p>
-            </div>
-          </div>
+      <AnimatePresence>
+        {isOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsOpen(false)}
+              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
+            />
 
-          <div className="h-[500px] overflow-y-auto p-6 space-y-4 bg-slate-50 dark:bg-slate-800/50">
-            <AnimatePresence>
-              {messages.map((message) => (
-                <motion.div
-                  key={message.id}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0 }}
-                  className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
-                >
-                  <div className={`flex gap-3 max-w-[80%] ${message.isUser ? 'flex-row-reverse' : 'flex-row'}`}>
-                    <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${
-                      message.isUser
-                        ? 'bg-blue-600'
-                        : 'bg-gradient-to-br from-teal-500 to-blue-600'
-                    }`}>
-                      {message.isUser ? (
-                        <User className="text-white" size={18} />
-                      ) : (
-                        <Bot className="text-white" size={18} />
-                      )}
-                    </div>
-
-                    <div className={`p-4 rounded-2xl ${
-                      message.isUser
-                        ? 'bg-blue-600 text-white rounded-tr-none'
-                        : 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white rounded-tl-none shadow-md'
-                    }`}>
-                      <p className="text-sm md:text-base leading-relaxed">{message.text}</p>
-                    </div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              className="fixed inset-4 md:inset-auto md:bottom-24 md:right-6 md:w-[450px] md:h-[650px] z-50 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl overflow-hidden flex flex-col"
+            >
+              <div className="bg-gradient-to-r from-blue-600 to-teal-500 p-4 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-white/20 rounded-lg">
+                    <Bot className="text-white" size={24} />
                   </div>
-                </motion.div>
-              ))}
-            </AnimatePresence>
-
-            {isTyping && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="flex justify-start"
-              >
-                <div className="flex gap-3 max-w-[80%]">
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center bg-gradient-to-br from-teal-500 to-blue-600">
-                    <Bot className="text-white" size={18} />
-                  </div>
-                  <div className="p-4 rounded-2xl rounded-tl-none bg-white dark:bg-slate-900 shadow-md">
-                    <div className="flex gap-1">
-                      <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce"></span>
-                      <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></span>
-                      <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></span>
-                    </div>
+                  <div>
+                    <h3 className="text-white font-semibold">AI Assistant</h3>
+                    <p className="text-white/80 text-sm">Always here to help</p>
                   </div>
                 </div>
-              </motion.div>
-            )}
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="p-2 hover:bg-white/20 rounded-lg transition-colors"
+                >
+                  <X className="text-white" size={24} />
+                </button>
+              </div>
 
-            <div ref={messagesEndRef} />
-          </div>
+              <div className="flex-1 overflow-y-auto p-6 space-y-4 bg-slate-50 dark:bg-slate-800/50">
+                <AnimatePresence>
+                  {messages.map((message) => (
+                    <motion.div
+                      key={message.id}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                      className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
+                    >
+                      <div className={`flex gap-3 max-w-[80%] ${message.isUser ? 'flex-row-reverse' : 'flex-row'}`}>
+                        <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${
+                          message.isUser
+                            ? 'bg-blue-600'
+                            : 'bg-gradient-to-br from-teal-500 to-blue-600'
+                        }`}>
+                          {message.isUser ? (
+                            <User className="text-white" size={18} />
+                          ) : (
+                            <Bot className="text-white" size={18} />
+                          )}
+                        </div>
 
-          <div className="p-4 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700">
-            <div className="flex gap-3">
-              <input
-                type="text"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyPress={handleKeyPress}
-                placeholder={t.aiAssistant.placeholder}
-                className="flex-1 px-4 py-3 bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-slate-900 dark:text-white"
-              />
-              <button
-                onClick={handleSend}
-                disabled={!input.trim()}
-                className="px-6 py-3 bg-gradient-to-r from-blue-600 to-teal-500 text-white rounded-xl font-semibold hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                <Send size={20} />
-              </button>
-            </div>
-          </div>
-        </motion.div>
-      </div>
-    </section>
+                        <div className={`p-4 rounded-2xl ${
+                          message.isUser
+                            ? 'bg-blue-600 text-white rounded-tr-none'
+                            : 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white rounded-tl-none shadow-md'
+                        }`}>
+                          <p className="text-sm leading-relaxed">{message.text}</p>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
+
+                {isTyping && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="flex justify-start"
+                  >
+                    <div className="flex gap-3 max-w-[80%]">
+                      <div className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center bg-gradient-to-br from-teal-500 to-blue-600">
+                        <Bot className="text-white" size={18} />
+                      </div>
+                      <div className="p-4 rounded-2xl rounded-tl-none bg-white dark:bg-slate-900 shadow-md">
+                        <div className="flex gap-1">
+                          <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce"></span>
+                          <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></span>
+                          <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></span>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+
+                <div ref={messagesEndRef} />
+              </div>
+
+              <div className="p-4 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700">
+                <div className="flex gap-3">
+                  <input
+                    type="text"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    onKeyPress={handleKeyPress}
+                    placeholder={t.aiAssistant.placeholder}
+                    className="flex-1 px-4 py-3 bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-slate-900 dark:text-white"
+                  />
+                  <button
+                    onClick={handleSend}
+                    disabled={!input.trim()}
+                    className="px-6 py-3 bg-gradient-to-r from-blue-600 to-teal-500 text-white rounded-xl font-semibold hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <Send size={20} />
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 
